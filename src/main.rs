@@ -48,10 +48,18 @@ fn main() {
     let mut initial_ip = get_initial_ip();
     let names_and_hosts = get_names_and_hosts();
 
-    println!("\n\n");
+    println!("\nLANs:\n");
     for i in 0..names_and_hosts.len() {
        let network = Network::new(&initial_ip, names_and_hosts[i].1);
        initial_ip = next_ip(&network.broadcast);
-       println!("{} {:?}", names_and_hosts[i].0, network);
-    }    
+       println!(" {} {:?}\n", names_and_hosts[i].0, network);
+    }
+
+    println!("\nWANs\n");
+    for i in 0..names_and_hosts.len() {
+        let network = Network::new(&initial_ip, 4);
+        initial_ip = next_ip(&network.broadcast);
+        println!(" {}->{} WAN {:?}\n", names_and_hosts[i].0, names_and_hosts[(i+1) % names_and_hosts.len()].0, network)
+    }
+
 }
