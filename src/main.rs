@@ -40,6 +40,7 @@ fn get_names_and_hosts() -> Vec<(String, u32)> {
         names_and_hosts.push((name, hosts));
     }
 
+    names_and_hosts.sort_by(|a, b| b.1.cmp(&a.1));
     names_and_hosts
 }
 
