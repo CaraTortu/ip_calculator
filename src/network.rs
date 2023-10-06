@@ -10,8 +10,14 @@ pub struct Network {
 
 impl Network {
     pub fn new(initial_ip: &[u8; 4], amount_of_hosts: u32) -> Self {
+
         let netmask = hosts_to_netmask(amount_of_hosts);
         let prefix = netmask_to_prefix(&netmask);
+
+        if initial_ip.iter().enumerate().any(|(i, v)| v & !netmask[i] != 0) {
+            panic!("ERROR: Invalid initial IP given.");
+        }
+        
         let last_ip = last_ip_from_netmask(initial_ip, &netmask);
         let broadcast = next_ip(&last_ip);
 
