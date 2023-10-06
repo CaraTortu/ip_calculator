@@ -62,4 +62,6 @@ fn main() {
         println!(" {}->{} WAN {:?}\n", names_and_hosts[i].0, names_and_hosts[(i+1) % names_and_hosts.len()].0, network)
     }
 
+    // HALT UNTIL ENTER
+    input::<String>("Press enter to quit: ");
 }
